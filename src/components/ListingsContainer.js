@@ -1,45 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer({ listings }) {
-    const [listingsData, setListingsData] = useState([]);
+function ListingsContainer(props) {
+  const { listings,onDelete,onToggleFavorite } = props;
 
-useEffect(() => {
-  setListingsData(listings); 
-}, [listings]);
-
-function handleDelete(id) {
-  setListingsData((prevListingsData) => {
-    const updatedListings = prevListingsData.filter((listing) => listing.id !== id);
-    return [...updatedListings]; // Using spread to create a new array reference
-  });
-}
-function handleToggleFavorite(id) {
-  setListingsData((prevListingsData) => {
-    const updatedListings = prevListingsData.map((listing) =>
-      listing.id === id ? { ...listing, isFavorite: !listing.isFavorite } : listing
-    );
-    return updatedListings;
-  });
-}
-
-    
-    return (
-      <ul className="cards">
-        {listingsData.map(listing => (
-          <ListingCard 
-          key={listing.id} 
-          description={listing.description} 
-          image={listing.image} 
-          location={listing.location} 
+  return (
+    <ul className="cards">
+      {listings.map((listing) => (
+        <ListingCard
+          key={listing.id}
+          description={listing.description}
+          image={listing.image}
+          location={listing.location}
           isFavorite={listing.isFavorite}
-          onDelete={() => handleDelete(listing.id)}
-          onToggleFavorite={() => handleToggleFavorite(listing.id)}
-          />
-        ))}
-      </ul>
-    );
-  }
-
+          onDelete={() => onDelete(listing.id)}
+          onToggleFavorite={() => onToggleFavorite(listing.id)} 
+        />
+      ))}
+    </ul>
+  );
+}
 
 export default ListingsContainer;

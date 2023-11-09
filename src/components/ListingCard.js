@@ -2,10 +2,6 @@ import React from "react";
 
 function ListingCard({ id, description, image, location, isFavorite, onDelete, onToggleFavorite }) {
 
-  function handleDelete() {
-    onDelete(id);
-  }
-
   function handleToggleFavorite() {
     onToggleFavorite(id);
   }
@@ -22,7 +18,7 @@ function ListingCard({ id, description, image, location, isFavorite, onDelete, o
         </button>
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button className="emoji-button delete" onClick={handleDelete}>🗑</button>
+        <button className="emoji-button delete" onClick={onDelete}>🗑</button>
       </div>
     </li>
   );
